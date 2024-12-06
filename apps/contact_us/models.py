@@ -13,8 +13,14 @@ def get_user_email():
 def get_time():
     return datetime.datetime.utcnow()
 
-# Complete. 
+# Define db table
 db.define_table('contact_requests',
+                Field('name', requires=IS_NOT_EMPTY()),
+                Field('email', requires=IS_EMAIL()),
+                Field('phone', requires=IS_NOT_EMPTY()),
+                Field('message', 'text', requires=IS_NOT_EMPTY()),
+                Field('created_on', 'datetime', default=get_time),
+                Field('user_email', default=get_user_email),db.define_table('contact_requests',
                 Field('name', requires=IS_NOT_EMPTY()),
                 Field('email', requires=IS_EMAIL()),
                 Field('phone', requires=IS_NOT_EMPTY()),
@@ -22,5 +28,9 @@ db.define_table('contact_requests',
                 Field('created_on', 'datetime', default=get_time),
                 Field('user_email', default=get_user_email),
 )
+
+# Adjust db field visibility on form
+db.contact_requests.created_on.writable = False
+db.contact_requests.user_email.writable = False
 
 db.commit()
