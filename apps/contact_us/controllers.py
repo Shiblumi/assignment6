@@ -32,7 +32,7 @@ def contact_requests():
                 orderby=~db.contact_requests.created_on,
                 search_queries=[
                     ('Search by Name', lambda val: db.contact_requests.name.contains(val)),
-                    ('By Message', lambda val: db.contact_requests.message.contains(val))
+                    ('Search by Message', lambda val: db.contact_requests.message.contains(val))
                 ],
                 editable=False,
                 deletable=True,
@@ -42,3 +42,12 @@ def contact_requests():
                 )
     
     return dict(grid=grid)
+
+
+# Delete Contact Request
+@action('delete/<contact_requests_id:int>', method=["GET", "POST"])
+@action.uses(db, auth.user)
+def delete(contact_requests_id=None):
+    if contact_requests_id is not None:
+        db(db.contact_requests.id == contact_requests_id).delete()
+    redirect(URL('contact_requests'))
