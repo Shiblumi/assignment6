@@ -9,7 +9,7 @@ from py4web.utils.grid import Grid, GridClassStyleBulma
 
 # Index page
 @action('index', method=["GET", "POST"])
-@action.uses('index.html', db, session, auth.user)
+@action.uses('index.html', db, session)
 def index():
     form = Form(db.contact_requests, csrf_session=session, formstyle=FormStyleBulma)
     print("OUTPUT_YO:\n")
@@ -44,10 +44,10 @@ def contact_requests():
     return dict(grid=grid)
 
 
-# Delete Contact Request
-@action('delete/<contact_requests_id:int>', method=["GET", "POST"])
-@action.uses(db, auth.user)
-def delete(contact_requests_id=None):
-    if contact_requests_id is not None:
-        db(db.contact_requests.id == contact_requests_id).delete()
-    redirect(URL('contact_requests'))
+# # Delete Contact Request
+# @action('delete/<contact_requests_id:int>', method=["DELETE"])
+# @action.uses(db, auth.user)
+# def delete(contact_requests_id):
+#     if contact_requests_id is not None:
+#         db(db.contact_requests.id == contact_requests_id).delete()
+#     redirect(URL('contact_requests'))
