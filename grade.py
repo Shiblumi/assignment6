@@ -214,6 +214,7 @@ class Assignment(ProtoAssignment):
         
     def step1(self):
         """Adding contact information"""
+        self.login(self.user2)
         self.add_contact(self.info1)
         self.add_contact(self.info2)
         self.add_contact(self.info3)
