@@ -28,10 +28,10 @@ def contact_requests():
                 path=URL('contact_requests'),
                 query=db.contact_requests,
                 orderby=~db.contact_requests.created_on,
-                search_queries=[[
-                    'Search by Name', lambda val: db.contact_requests.name.contains(val),
-                    'By Message', lambda val: db.contact_requests.message.contains(val)
-                ]],
+                search_queries=[
+                    ('Search by Name', lambda val: db.contact_requests.name.contains(val)),
+                    ('By Message', lambda val: db.contact_requests.message.contains(val))
+                ],
                 editable=False,
                 deletable=True,
                 create=False,
